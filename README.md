@@ -2,9 +2,9 @@
 A plugin for SCP:SL that uses [EXILED](https://github.com/galaxy119/EXILED/tree/1.2.2). Add new gamemodes to the game.
 
 ## Usage
-**Help: **```customgamemodes help```
+Help:```customgamemodes help```
 
-**Select gamemode: **```customgamemodes [gamemode]```
+Select gamemode:```customgamemodes [gamemode]```
 
 ## Gamemodes
 ###### default
