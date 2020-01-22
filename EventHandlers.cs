@@ -24,23 +24,20 @@ namespace CustomGamemodes
                 switch (args[1].ToLower())
                 {
                     case "default":
-                        ev.Allow = false;
+                        ev.Sender.RAMessage("Default gamemode will be loaded in the next round!");
                         gamemode = 0;
                         break;
 
                     case "deathmatch":
-                        ev.Allow = false;
+                        ev.Sender.RAMessage("Deathmatch gamemode will be loaded in the next round!");
                         gamemode = 1;
                         break;
 
                     case "help":
-                        ev.Allow = false;
                         Plugin.Info("====================================================");
                         Plugin.Info("-CustomGamemodes help-");
                         Plugin.Info("");
                         Plugin.Info("Usage: customgamemodes [gamemode]");
-                        Plugin.Info("");
-                        Plugin.Info("");
                         Plugin.Info("");
                         Plugin.Info("Gamemodes:");
                         Plugin.Info("default: Classic SCP:SL gamemode.");
@@ -49,6 +46,7 @@ namespace CustomGamemodes
                         break;
 
                     default:
+                        Plugin.Info("Select a valid gamemode.");
                         break;
                 }
             }
