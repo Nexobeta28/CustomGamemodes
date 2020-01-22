@@ -7,8 +7,7 @@ Help:```customgamemodes help```
 Select gamemode:```customgamemodes [gamemode]```
 
 ## Gamemodes
-###### default
-Classic SCP:SL gamemode.
+**default:** Classic SCP:SL gamemode.
 
 ###### deathmatch
 Everyone spawns as a Facility Guard at the entrance with a USP. Collect ammo from the dead bodies.
