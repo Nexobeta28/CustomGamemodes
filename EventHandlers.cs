@@ -34,19 +34,19 @@ namespace CustomGamemodes
                         break;
 
                     case "help":
-                        Plugin.Info("====================================================");
-                        Plugin.Info("-CustomGamemodes help-");
-                        Plugin.Info("");
-                        Plugin.Info("Usage: customgamemodes [gamemode]");
-                        Plugin.Info("");
-                        Plugin.Info("Gamemodes:");
-                        Plugin.Info("default: Classic SCP:SL gamemode.");
-                        Plugin.Info("deathmatch: Everyone is a Facility Guard with a USP.");
-                        Plugin.Info("====================================================");
+                        ev.Sender.RAMessage("====================================================");
+                        ev.Sender.RAMessage("-CustomGamemodes help-");
+                        ev.Sender.RAMessage("");
+                        ev.Sender.RAMessage("Usage: customgamemodes [gamemode]");
+                        ev.Sender.RAMessage("");
+                        ev.Sender.RAMessage("Gamemodes:");
+                        ev.Sender.RAMessage("default: Classic SCP:SL gamemode.");
+                        ev.Sender.RAMessage("deathmatch: Everyone is a Facility Guard with a USP.");
+                        ev.Sender.RAMessage("====================================================");
                         break;
 
                     default:
-                        Plugin.Info("Select a valid gamemode.");
+                        ev.Sender.RAMessage("Select a valid gamemode.");
                         break;
                 }
             }
@@ -66,8 +66,9 @@ namespace CustomGamemodes
                         Plugin.Info("Deathmatch gamemode selected");
                         hub.Broadcast(5, "<color=#ff0000>Deathmatch: Kill everyone and stay alive.</color>");
 
+                        ServerConsole.FriendlyFire = true;
                         Plugin.Info("Loading deathmatch...");
-                        Timing.RunCoroutine(DeathmatchCR(hub));
+                        Timing.RunCoroutine(DeathmatchCR(hub));   
 
                         Plugin.Info("Done! :>");
                         break;
@@ -77,19 +78,26 @@ namespace CustomGamemodes
                 }
             } 
         }
-
+        
         //COROUTINES
         public IEnumerator<float> DeathmatchCR(ReferenceHub hub)
         {
+            //Round start
             yield return Timing.WaitForSeconds(3f);
 
             hub.characterClassManager.SetPlayersClass(RoleType.FacilityGuard, hub.gameObject, true);
             hub.inventory.Clear();
             hub.inventory.AddNewItem(ItemType.GunUSP);
+            PlayerManager.localPlayer.GetComponent<AmmoBox>().SetOneAmount(2, "5");
 
-            for (int i = 0; i < 3; i++)
+            RoundSummary.RoundLock = true;
+
+            //Round end
+            if(RoundSummary.singleton.CountRole(RoleType.FacilityGuard) <= 1)
             {
-                PlayerManager.localPlayer.GetComponent<Inventory>().SetPickup(ItemType.Ammo9mm, -4.656647E+11f, hub.gameObject.transform.position, Quaternion.Euler(0, 0, 0), 0, 0, 0);
+                RoundSummary.RoundLock = false;
+                string winner = hub.nicknameSync.Network_myNickSync;
+                hub.Broadcast(5,winner+" has won the round!");
             }
         }
     }
