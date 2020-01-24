@@ -78,6 +78,20 @@ namespace CustomGamemodes
                 }
             } 
         }
+
+        //TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO: onenable ondisable.
+        public void OnPlayerDeath(ref PlayerDeathEvent ev)
+        {
+            if (RoundSummary.singleton.CountRole(RoleType.FacilityGuard) <= 1)
+            {
+                foreach (ReferenceHub hub in Plugin.GetHubs())
+                {
+                    RoundSummary.RoundLock = false;
+                    string winner = hub.nicknameSync.Network_myNickSync;
+                    hub.Broadcast(5, winner + " has won the round!");
+                }
+            }
+        }
         
         //COROUTINES
         public IEnumerator<float> DeathmatchCR(ReferenceHub hub)
@@ -88,17 +102,10 @@ namespace CustomGamemodes
             hub.characterClassManager.SetPlayersClass(RoleType.FacilityGuard, hub.gameObject, true);
             hub.inventory.Clear();
             hub.inventory.AddNewItem(ItemType.GunUSP);
-            PlayerManager.localPlayer.GetComponent<AmmoBox>().SetOneAmount(2, "5");
+            hub.gameObject.GetComponent<AmmoBox>().SetOneAmount(2, "250");
 
             RoundSummary.RoundLock = true;
 
-            //Round end
-            if(RoundSummary.singleton.CountRole(RoleType.FacilityGuard) <= 1)
-            {
-                RoundSummary.RoundLock = false;
-                string winner = hub.nicknameSync.Network_myNickSync;
-                hub.Broadcast(5,winner+" has won the round!");
-            }
         }
     }
 }

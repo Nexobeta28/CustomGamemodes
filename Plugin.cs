@@ -21,6 +21,8 @@ namespace CustomGamemodes
                 EventHandlers = new EventHandlers(this);
                 Events.RoundStartEvent += EventHandlers.OnRoundStart;
                 Events.RemoteAdminCommandEvent += EventHandlers.OnCommand;
+                Events.PlayerDeathEvent += EventHandlers.OnPlayerDeath;
+
                 Info($"CustomGamemodes loaded!");
             }
             catch (Exception e)
@@ -33,6 +35,7 @@ namespace CustomGamemodes
         {
             Events.RoundStartEvent -= EventHandlers.OnRoundStart;
             Events.RemoteAdminCommandEvent -= EventHandlers.OnCommand;
+            Events.PlayerDeathEvent -= EventHandlers.OnPlayerDeath;
 
             EventHandlers = null;
         }
