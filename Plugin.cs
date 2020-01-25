@@ -22,6 +22,8 @@ namespace CustomGamemodes
                 Events.RoundStartEvent += EventHandlers.OnRoundStart;
                 Events.RemoteAdminCommandEvent += EventHandlers.OnCommand;
                 Events.PlayerDeathEvent += EventHandlers.OnPlayerDeath;
+                Events.TeamRespawnEvent += EventHandlers.OnTeamRespawn;
+                Events.PlayerHurtEvent += EventHandlers.OnPlayerHurt;
 
                 Info($"CustomGamemodes loaded!");
             }
@@ -36,6 +38,8 @@ namespace CustomGamemodes
             Events.RoundStartEvent -= EventHandlers.OnRoundStart;
             Events.RemoteAdminCommandEvent -= EventHandlers.OnCommand;
             Events.PlayerDeathEvent -= EventHandlers.OnPlayerDeath;
+            Events.TeamRespawnEvent -= EventHandlers.OnTeamRespawn;
+            Events.PlayerHurtEvent -= EventHandlers.OnPlayerHurt;
 
             EventHandlers = null;
         }
